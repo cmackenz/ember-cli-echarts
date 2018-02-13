@@ -4,16 +4,14 @@ module.exports = {
     ecmaVersion: 2017,
     sourceType: 'module'
   },
-  extends: [
-    'eslint:recommended',
-    'plugin:ember-suave/recommended'
-  ],
+  extends: 'eslint:recommended',
   env: {
     browser: true
   },
   rules: {
-    'generator-star-spacing': ['error', { before: false, after: false }],
-    'ember-suave/require-access-in-comments': 'off',
-    'ember-suave/no-const-outside-module-scope': 'off'
+  },
+  globals: {
+    "jQuery": true,
+    "$": true
   }
 };

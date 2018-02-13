@@ -1,8 +1,6 @@
-import Ember from 'ember';
 import { moduleForComponent, test } from 'ember-qunit';
+import { run } from '@ember/runloop';
 import hbs from 'htmlbars-inline-precompile';
-
-const { run } = Ember;
 
 moduleForComponent('echarts-chart', 'Integration | Component | echarts chart', {
   integration: true,

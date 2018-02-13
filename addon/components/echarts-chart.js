@@ -1,16 +1,8 @@
-import Ember from 'ember';
+import Component from '@ember/component';
+import { get, set, computed, observer } from '@ember/object';
+import { run } from '@ember/runloop';
+import { on } from '@ember/object/evented';
 import echarts from 'echarts';
-
-const {
-  Component,
-  get,
-  set,
-  computed,
-  observer,
-  run,
-  on,
-  $
-} = Ember;
 
 export default Component.extend({
   classNames: ['echarts-chart'],
