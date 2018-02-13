@@ -3,7 +3,7 @@
 
 module.exports = {
   name: 'ember-cli-echarts',
-  isDevelopingAddon(){
+  isDevelopingAddon: function() {
     return true;
   }
 };
