@@ -1,25 +1,39 @@
+import Ember from 'ember';
 import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
 
 moduleForComponent('echarts-chart', 'Integration | Component | echarts chart', {
-  integration: true
+  integration: true,
+  beforeEach(){
+    this.set('options', {
+      xAxis: {
+        type: 'category',
+        data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+      },
+      yAxis: {
+        type: 'value'
+      },
+      series: [{
+        data: [820, 932, 901, 934, 1290, 1330, 1320],
+        type: 'line'
+      }]
+    });
+  }
 });
 
 test('it renders', function(assert) {
-
-  // Set any properties with this.set('myProperty', 'value');
-  // Handle any actions with this.on('myAction', function(val) { ... });
-
+  assert.expect(1);
   this.render(hbs`{{echarts-chart}}`);
+  assert.equal(this.$().text(), '');
+});
 
-  assert.equal(this.$().text().trim(), '');
+test('it displays data', function(assert) {
+  assert.expect(1);
+  let done = assert.async();
 
-  // Template block usage:
-  this.render(hbs`
-    {{#echarts-chart}}
-      template block text
-    {{/echarts-chart}}
-  `);
-
-  assert.equal(this.$().text().trim(), 'template block text');
+  this.render(hbs`{{echarts-chart options=options}}`);
+  Ember.run.later(() => {
+    assert.equal(this.$().find('canvas').length, 1);
+    done();
+  }, 2000);
 });

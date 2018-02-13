@@ -1,5 +1,5 @@
 import Ember from 'ember';
-import echarts from 'ember-echarts';
+import echarts from 'echarts';
 
 const {
   Component,
@@ -19,6 +19,12 @@ export default Component.extend({
   notMerge: false,
   lazyUpdate: false,
   theme: null,
+  initOptions: {
+    devicePixelRatio: 1,
+    renderer: 'canvas',
+    width: 'auto',
+    height: 'auto'
+  },
 
   _chart: null,
 
@@ -48,7 +54,7 @@ export default Component.extend({
     let $el = $(selector);
     let context = get(this, 'eventContext');
 
-    chart = echarts.init($el[0]);
+    chart = echarts.init($el[0], get(this, 'theme'), get(this, 'initOptions'));
 
     set(this, '_chart', chart);
 
@@ -63,13 +69,17 @@ export default Component.extend({
 
   handleResize(){
     const chart = get(this, '_chart');
-    if (chart) chart.resize();
+    if (chart) {
+      chart.resize();
+    }
   },
 
   willDestroyElement(){
     this._super(...arguments);
     const chart = get(this, '_chart');
-    if (chart) chart.dispose();
+    if (chart) {
+      chart.dispose();
+    }
     $(window).off("resize");
   },
 
