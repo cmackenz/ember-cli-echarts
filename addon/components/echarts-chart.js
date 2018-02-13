@@ -28,29 +28,31 @@ export default Component.extend({
 
   _chart: null,
 
-  beforeSetup(){},
-  afterSetup(){},
+  beforeSetup() {
+  },
+  afterSetup() {
+  },
 
-  init(){
+  init() {
     this._super(...arguments);
     $(window).on('resize', this.handleResize.bind(this));
   },
 
-  eventContext: computed(function(){
+  eventContext: computed(function() {
     return get(this, 'targetObject') || this;
   }),
 
-  reDraw: on('didInsertElement', observer('options', 'options.{*}', function(){
+  reDraw: on('didInsertElement', observer('options', 'options.{*}', function() {
     run.scheduleOnce('render', this, this.drawChart);
   })),
 
-  drawChart(){
+  drawChart() {
     if (get(this, '_chart') && get(this, '_chart').isDisposed()) {
       return;
     }
 
     let chart;
-    let selector = '#' + get(this, 'elementId');
+    let selector = `#${get(this, 'elementId')}`;
     let $el = $(selector);
     let context = get(this, 'eventContext');
 
@@ -67,20 +69,20 @@ export default Component.extend({
     return chart;
   },
 
-  handleResize(){
+  handleResize() {
     const chart = get(this, '_chart');
     if (chart) {
       chart.resize();
     }
   },
 
-  willDestroyElement(){
+  willDestroyElement() {
     this._super(...arguments);
     const chart = get(this, '_chart');
     if (chart) {
       chart.dispose();
     }
-    $(window).off("resize");
-  },
+    $(window).off('resize');
+  }
 
 });

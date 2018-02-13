@@ -2,9 +2,11 @@ import Ember from 'ember';
 import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
 
+const { run } = Ember;
+
 moduleForComponent('echarts-chart', 'Integration | Component | echarts chart', {
   integration: true,
-  beforeEach(){
+  beforeEach() {
     this.set('options', {
       xAxis: {
         type: 'category',
@@ -32,7 +34,7 @@ test('it displays data', function(assert) {
   let done = assert.async();
 
   this.render(hbs`{{echarts-chart options=options}}`);
-  Ember.run.later(() => {
+  run.later(() => {
     assert.equal(this.$().find('canvas').length, 1);
     done();
   }, 2000);
